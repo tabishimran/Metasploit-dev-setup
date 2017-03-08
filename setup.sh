@@ -108,6 +108,9 @@ curl -L https://get.rvm.io | bash -s stable
 printf "\n\n${GREEN}[*] Setting up RVM \n${NORMAL}"
 source ~/.rvm/scripts/rvm
 
+printf "\n\n${GREEN}[*] Testing RVM \n${NORMAL}"
+rvm
+
 printf "\n\n${GREEN}[*] Installing ruby \n${NORMAL}"
 cd ~/git/metasploit-framework
 rvm --install ruby-"$(cat .ruby-version)"
@@ -133,7 +136,8 @@ bundle install
 printf "\n\n${GREEN}[*] Trying to run metasploit \n${NORMAL}"
 printf "\n${GREEN}[*] This will take a while \n${NORMAL}"
 ./msfconsole -qx "banner; exit"
-
+#
+exit
 printf "\n\n${GREEN}[*] Setting up the database for metasploit \n${NORMAL}"
 
 printf "\n\n${GREEN}[*] Enter you\'re password           :  ${NORMAL}"
