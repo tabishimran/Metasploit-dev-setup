@@ -132,7 +132,6 @@ bundle install
 printf "\n\n${GREEN}[*] Trying to run metasploit \n${NORMAL}"
 printf "\n${GREEN}[*] This will take a while \n${NORMAL}"
 ./msfconsole -qx "banner; exit"
-exit;
 
 printf "\n\n${GREEN}[*] Setting up the database for metasploit \n${NORMAL}"
 
@@ -188,6 +187,7 @@ test:
 EOF
 
 cd $HOME/git/metasploit-framework/
+source ~/.rvm/scripts/rvm
 rake db:migrate RAILS_ENV=test
 
 printf "\n\n${GREEN}[*] Finally checking DB connectivity \n${NORMAL}"
