@@ -25,7 +25,7 @@ printf "\n | You must have a debian based linux distro                        |"
 printf "\n | You must have a github account                                   |"
 printf "\n |__________________________________________________________________|"
 
-sleep 2
+sleep 3
 printf "\n\n${GREEN}[*] Checking if git is installed ${NORMAL}"
 if ! which git > /dev/null; then
 	printf "\n${GREEN}[*] Git not found, installing git\n${NORMAL}"
@@ -112,7 +112,7 @@ printf "\n\n${GREEN}[*] Installing ruby \n${NORMAL}"
 cd ~/git/metasploit-framework
 rvm --install ruby-"$(cat .ruby-version)"
 
-printf "\n\n${GREEN}[*] Are you using gnome ? (y/n) ${NORMAL}"
+printf "\n\n${GREEN}[*] Are you using gnome ? (y/n) : ${NORMAL}"
 read gch
 if [ $gch == "y" ]; then
 	printf "\n\n${GREEN}[*] Tweaking gnome to use RVM's version of ruby \n${NORMAL}"
@@ -206,4 +206,4 @@ echo "         o  (oo)\_______           "
 echo "            (__)\       )\/\       "
 echo "                ||----w |          "
 echo "                ||     ||          "
-printf "${NORMAL}\n"
+printf "${NORMAL}\n\n"
