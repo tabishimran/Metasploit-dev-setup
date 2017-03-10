@@ -108,15 +108,9 @@ curl -L https://get.rvm.io | bash -s stable
 printf "\n\n${GREEN}[*] Setting up RVM \n${NORMAL}"
 source ~/.rvm/scripts/rvm
 
-printf "\n\n${GREEN}[*] Testing RVM \n${NORMAL}"
-rvm
-
 printf "\n\n${GREEN}[*] Installing ruby \n${NORMAL}"
 cd ~/git/metasploit-framework
 rvm --install ruby-"$(cat .ruby-version)"
-
-printf "\n\n${GREEN}[*] Bundler \n${NORMAL}"
-gem install bundler
 
 printf "\n\n${GREEN}[*] Are you using gnome ? (y/n) ${NORMAL}"
 read gch
@@ -131,13 +125,15 @@ echo  $rbver
 
 printf "\n\n${GREEN}[*] Installing bundled gems \n${NORMAL}"
 cd ~/git/metasploit-framework/
+source ~/.rvm/scripts/rvm
+gem install bundler
 bundle install
 
 printf "\n\n${GREEN}[*] Trying to run metasploit \n${NORMAL}"
 printf "\n${GREEN}[*] This will take a while \n${NORMAL}"
 ./msfconsole -qx "banner; exit"
-#
-exit
+exit;
+
 printf "\n\n${GREEN}[*] Setting up the database for metasploit \n${NORMAL}"
 
 printf "\n\n${GREEN}[*] Enter you\'re password           :  ${NORMAL}"
@@ -191,21 +187,6 @@ test:
   database: msf_test_db
 EOF
 
-printf "\n\n${GREEN}[*] Enabling postgresql on startup ${NORMAL}\n" 
-sudo update-rc.d postgresql enable
-
-sudo -sE su postgres
-psql
-update pg_database set datallowconn = TRUE where datname = 'template0';
-\c template0
-update pg_database set datistemplate = FALSE where datname = 'template1';
-drop database template1;
-create database template1 with template = template0 encoding = 'UTF8';
-update pg_database set datistemplate = TRUE where datname = 'template1';
-\c template1
-update pg_database set datallowconn = FALSE where datname = 'template0';
-\q
-
 cd $HOME/git/metasploit-framework/
 rake db:migrate RAILS_ENV=test
 
@@ -213,3 +194,16 @@ printf "\n\n${GREEN}[*] Finally checking DB connectivity \n${NORMAL}"
 ./msfconsole -qx "db_status; exit"
 
 
+printf "\n\n${GREEN}[*] All done, run rake spec to make sure everything is fine ${NORMAL}\n\n"
+
+
+printf "${RED}"
+echo " ----------------                  "
+echo "(  Best of luck  )                 "
+echo " ----------------                  "
+echo "        o   ^__^                   "
+echo "         o  (oo)\_______           "
+echo "            (__)\       )\/\       "
+echo "                ||----w |          "
+echo "                ||     ||          "
+printf "${NORMAL}\n"
