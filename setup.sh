@@ -162,7 +162,7 @@ sleep 1
 sudo -u postgres psql -f $HOME/pg-utf8.sql &&
 sudo -u postgres createuser $user -dRS &&
 sudo -u postgres psql -c \
-  "ALTER USER msfdev with ENCRYPTED PASSWORD '$pgsqlpassword';" &&
+  "ALTER USER $user with ENCRYPTED PASSWORD '$pgsqlpassword';" &&
 sudo -u postgres createdb --owner $user msf_dev_db &&
 sudo -u postgres createdb --owner $user msf_test_db &&
 cat <<EOF> $HOME/.msf4/database.yml
