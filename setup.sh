@@ -22,7 +22,7 @@ printf "\n | Requirements ->                                                  |"
 printf "\n |                                                                  |"
 printf "\n | You must have a Non-Root user account                            |"
 printf "\n | You must have a debian based linux distro                        |"
-printf "\n | You must have a github account                                   |"
+printf "\n | You must have a github account ( if you wish to contribute )     |"
 printf "\n |__________________________________________________________________|"
 
 sleep 3
@@ -34,16 +34,22 @@ else
 	printf "\n\n${GREEN}[*] Git already installed ${NORMAL}"
 fi
 
-printf "\n\n${GREEN}[*] Setting up github information \n\n${NORMAL}"
-printf "  -> Enter your name        : "
-read name
-git config --global user.name "$name"
-printf "  -> Enter github username  : "
-read github_username
-git config --global github.user "$github_username"
-printf "  -> Enter github email id  : "
-read github_email
-git config --global user.email "$github_email"
+printf "\n\n${GREEN}[*] Setup github account information? (y/n) : ${NORMAL}"
+read gitch
+if [ $gitch == 'y' ] || [ $gitch == 'Y' ]; then
+	printf "\n\n${GREEN}[*] Setting up github information \n\n${NORMAL}"
+	printf "  -> Enter your name        : "
+	read name
+	git config --global user.name "$name"
+	printf "  -> Enter github username  : "
+	read github_username
+	git config --global github.user "$github_username"
+	printf "  -> Enter github email id  : "
+	read github_email
+	git config --global user.email "$github_email"
+else
+	printf"\n\n${GREEN}[*] Skipping github account setup \n{NORMAL}"
+fi
 
 printf "\n\n${GREEN}[*] Installing Dependencies \n\n${NORMAL}"
 sudo apt-get -y install \
@@ -86,7 +92,7 @@ cd $HOME/git/metasploit-framework
 
 printf "\n\n${GREEN}[*] Setup upstream ? (y/n)   : ${NORMAL}"
 read upch
-if [ $upch == "y" ]; then
+if [ $upch == "y" ] || [ $upch == "Y" ]; then
 	printf "\n${GREEN}[*] Setting up upstream ${NORMAL}"
 	git remote add upstream https://github.com/rapid7/metasploit-framework.git
 	git fetch upstream
@@ -114,7 +120,7 @@ rvm --install ruby-"$(cat .ruby-version)"
 
 printf "\n\n${GREEN}[*] Are you using gnome ? (y/n) : ${NORMAL}"
 read gch
-if [ $gch == "y" ]; then
+if [ $gch == "y" ] || [ $gch == "Y" ]; then
 	printf "\n\n${GREEN}[*] Tweaking gnome to use RVM's version of ruby \n${NORMAL}"
 	gconftool-2 --set --type boolean /apps/gnome-terminal/profiles/Default/login_shell true
 fi
@@ -207,3 +213,4 @@ echo "            (__)\       )\/\       "
 echo "                ||----w |          "
 echo "                ||     ||          "
 printf "${NORMAL}\n\n"
+
